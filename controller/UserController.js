@@ -259,4 +259,19 @@ exports.deleteUser = catchAsyncErrors(async(req,res,next) =>{
        message:"User deleted successfully"
    })
 });
+//update user status --Admin
+exports.updateUserStatus = catchAsyncErrors(async(req,res,next) =>{
+  const newUserData = {
+      status: req.body.status,
+  };
+  const user = await User.findByIdAndUpdate(req.params.id,newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+  });
 
+  res.status(200).json({
+      success: true,
+      user
+  })
+});

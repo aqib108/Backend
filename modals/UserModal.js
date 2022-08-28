@@ -60,6 +60,10 @@ const userSchema = new mongoose.Schema({
     type:String,
     default: "user",
    },
+   status:{
+    type:String,
+    default: "unverifried",
+   },
    
    createdAt:{
      type: Date,
