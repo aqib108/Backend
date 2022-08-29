@@ -6,7 +6,6 @@ const OrderSchema = new mongoose.Schema({
         type:String,
         required:[true,"Please enter the title"],
         minlength:[5,"Please enter a title atleast 5 characters"], 
-        
     },
     discription : {
         type : String,

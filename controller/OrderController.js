@@ -40,8 +40,6 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     if (!order) {
       return next(new Error());
     }
-  
-  
     
     order = await Order.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -57,10 +55,6 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     if (!order) {
       return next(new Error());
     }
-  
-  
-    
-  
     order = await Order.deleteOne({ _id: req.params.id });
     if (order.deletedCount == 0) return next(new Error());
     res.status(200).send("successful");

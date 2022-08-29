@@ -23,6 +23,8 @@ const  dashboard = require("./routes/DashboardRoute");
 
 const  orders = require("./routes/OrderRoute");
 
+const  review = require("./routes/OrderReviewRoute");
+
 const  chats = require("./routes/ChatRoute");
 
 app.use("/api/v2", requisition);
@@ -34,6 +36,8 @@ app.use('/api/v2/order' , orders)
 app.use('/api/v2/category' , categories)
 
 app.use('/api/v2/chat' , chats)
+
+app.use('/api/v2/review' , review)
 
 app.use('/api/v2/dashboard' , dashboard)
 

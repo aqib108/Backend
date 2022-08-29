@@ -198,6 +198,7 @@ res.status(200).json({
   success: true,
   user,
 });
+
 });
 
 // Get All users ---Admin

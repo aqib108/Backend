@@ -16,6 +16,4 @@ router.get("/:user_id", getMeesagesByUserId);
 
 router.post("/", createMessage);
 
-
-
 module.exports = router;
