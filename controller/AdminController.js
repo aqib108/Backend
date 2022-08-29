@@ -63,7 +63,7 @@ exports.getCategoryById = catchAsyncErrors(async (req, res, next) => {
 
     cat = await Category.deleteOne({ _id: req.params.CategoryId });
     if (cat.deletedCount == 0) return next(new Error());
-    res.status(200).send("successful");
+    res.status(200).json({'success':true,'message':'Successfully Deleted'});
   });
   exports.getDashboard = catchAsyncErrors(async (req, res, next) => {
     let totalOrganization = await User.countDocuments({role:'organization'})
