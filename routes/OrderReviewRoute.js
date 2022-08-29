@@ -3,14 +3,24 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const {
   createReview,
+  getAllReviews,
+  getReviewsByOrder,
+  updateOrderReview
 } = require("../controller/OrganizationController");
 
-// get messages by user
+//post order review
+router.post("/", createReview);
 
-// router.get("/:user_id", getMeesagesByUserId);
+// get all Orders
+router.get("/", getAllReviews);
 
-//post Review
+//get review by order
+router.get("/:OrderId", getReviewsByOrder);
 
-router.put("/", createReview);
+//update a Order Review
+
+router.put("/:id", updateOrderReview);
+
+// router.put("/", createReview);
 
 module.exports = router;

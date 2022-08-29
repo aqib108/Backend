@@ -23,6 +23,8 @@ const  dashboard = require("./routes/DashboardRoute");
 
 const  orders = require("./routes/OrderRoute");
 
+const  payment = require("./routes/PaymentRoute");
+
 const  review = require("./routes/OrderReviewRoute");
 
 const  chats = require("./routes/ChatRoute");
@@ -34,6 +36,8 @@ app.use("/api/v2/bid", bids);
 app.use("/api/v2", vendors);
 
 app.use('/api/v2/order' , orders)
+
+app.use('/api/v2/payment' , payment)
 
 app.use('/api/v2/category' , categories)
 

@@ -17,7 +17,7 @@ exports.createOrder = catchAsyncErrors(async (req,res,next) =>{
 
 
 exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
-    const order = await Order.find();
+    const order = await Order.find().populate('vendor organization bid');
   
     if (!order) {
       return next(new Error());
@@ -25,7 +25,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     res.json(order);
 })
   exports.getOrder = catchAsyncErrors(async (req, res, next) => {
-    const order = await Order.findOne({ _id: req.params.id });
+    const order = await Order.findOne({ _id: req.params.id }).populate('vendor organization bid');
   
     if (!order) {
       return next(new Error());
@@ -57,7 +57,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     }
     order = await Order.deleteOne({ _id: req.params.id });
     if (order.deletedCount == 0) return next(new Error());
-    res.status(200).send("successful");
+    res.status(200).send({success:true,message:'sucessfully deleted'});
   });
 
 
