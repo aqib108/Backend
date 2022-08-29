@@ -2,6 +2,9 @@ const Category = require("../modals/CategoryModel");
 const ErrorHandler = require("../utils/ErrorHandler.js");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 const Features = require("../utils/Features.js");
+const User = require("../modals/UserModal");
+const Order = require("../modals/OrderModel");
+const Requisition = require("../modals/RequisitionModal");
 // create category
 
 exports.createCategory = catchAsyncErrors(async (req,res,next) =>{
@@ -62,7 +65,19 @@ exports.getCategoryById = catchAsyncErrors(async (req, res, next) => {
     if (cat.deletedCount == 0) return next(new Error());
     res.status(200).send("successful");
   });
-
+  exports.getDashboard = catchAsyncErrors(async (req, res, next) => {
+    let totalOrganization = await User.countDocuments({role:'organization'})
+    let totalVendor = await User.countDocuments({role:'vendor'});
+    let totalOrder = await Order.countDocuments({});
+    let totalRequisition = await Requisition.countDocuments({});
+    var dashboard ={
+      totalOrganization,
+      totalVendor,
+      totalOrder,
+      totalRequisition
+    } 
+    res.status(200).json(dashboard);
+  });
 
 
   
