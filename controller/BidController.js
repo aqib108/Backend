@@ -36,8 +36,7 @@ exports.getAllBids = catchAsyncErrors(async (req, res, next) => {
 })
   exports.getBid = catchAsyncErrors(async (req, res, next) => {
     const bid = await Bid.findOne({ _id: req.params.bidId });
-  
-    if (!bid || bid.requisition != req.params.id) {
+    if (!bid) {
       return next(new Error());
     }
     res.json(bid);
@@ -47,12 +46,12 @@ exports.getAllBids = catchAsyncErrors(async (req, res, next) => {
   exports.updateBid = catchAsyncErrors(async (req, res, next) => {
     let bid = await Bid.findById(req.params.bidId);
   
-    if (!bid || bid.requisition != req.params.id) {
+    if (!bid) {
         return next(new Error());
       }
   
   
-    
+
     bid = await Bid.findByIdAndUpdate(req.params.bidId, req.body, {
       new: true,
       runValidators: true,
@@ -64,15 +63,31 @@ exports.getAllBids = catchAsyncErrors(async (req, res, next) => {
   exports.deleteBid = catchAsyncErrors(async (req, res, next) => {
     let bid = await Bid.findById(req.params.bidId);
   
-    if (!bid || bid.requisition != req.params.id) {
+    if (!bid) {
         return next(new Error());
       }
 
     bid = await Bid.deleteOne({ _id: req.params.bidId });
     if (bid.deletedCount == 0) return next(new Error());
-    res.status(200).send("successful");
+    res.status(200).json({success:true,message:'Successfully Deleted'});
+  });
+//function change the bid status
+exports.updateBidStatus = catchAsyncErrors(async (req, res, next) => {
+  let bid = await Bid.findById(req.params.bidId);
+
+  if (!bid) {
+      return next(new Error());
+    }
+
+
+
+  bid = await Bid.findByIdAndUpdate(req.params.bidId, req.body, {
+    new: true,
+    runValidators: true,
   });
 
+  res.status(200).json(bid);
+});
 
 
   

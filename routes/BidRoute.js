@@ -7,6 +7,7 @@ const {
   createBid,
   updateBid,
   deleteBid,
+  updateBidStatus
 } = require("../controller/BidController");
 
 
@@ -27,10 +28,12 @@ router.post("/", createBid);
 
 router.put("/:bidId", updateBid);
 
+//update a Bid status
+
+router.put("/status/:bidId", updateBidStatus);
+
 //delete a Bid
 
 router.delete("/:bidId", deleteBid);
-
-
 
 module.exports = router;
