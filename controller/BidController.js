@@ -7,14 +7,15 @@ const RequisitionModal = require("../modals/RequisitionModal");
 // create post
 
 exports.createBid = catchAsyncErrors(async (req,res,next) =>{
-
-    const requisition = await RequisitionModal.findOne({ _id: req.params.id });
+    const requisition = await RequisitionModal.findOne({ _id: req.query.id });
     if(!requisition) return next(new Error());
 
-
     req.body.requisition = requisition._id
-   
-
+    const alreadyBid = await Bid.findOne({ vendor: req.body.vendor,requisition:req.body.requisition });
+    if(alreadyBid!==null){
+      return res.status(201).json({success: true,message:'Already Bid on it',bid:alreadyBid});
+    }     
+    // console.log(req.body);return false;
     const bid = await Bid.create(req.body);
     
     res.status(201).json({
@@ -23,11 +24,10 @@ exports.createBid = catchAsyncErrors(async (req,res,next) =>{
     })
 });
 
-
+// get all bid against requisition
 exports.getAllBids = catchAsyncErrors(async (req, res, next) => {
-    const bid = await Bid.find({ requisition : req.params.id });
+    const bid = await Bid.find({ requisition : req.query.id }).populate('vendor');
 
-    console.log(bid)
   
     if (!bid) {
       return next(new Error());

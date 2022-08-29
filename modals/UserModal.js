@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema({
    },
    status:{
     type:String,
-    default: "unverified",
+    default: "disapporved",
    },
    
    createdAt:{

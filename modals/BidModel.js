@@ -27,6 +27,16 @@ const BidSchema = new mongoose.Schema({
     ref: "Requisition",
     required: true,
   },
+  vendor: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  status: {
+    type: String,
+    enum : ['pending','accept','rejact'],
+    default: 'pending'
+},
 
 
 })

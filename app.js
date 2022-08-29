@@ -29,6 +29,8 @@ const  chats = require("./routes/ChatRoute");
 
 app.use("/api/v2", requisition);
 
+app.use("/api/v2/bid", bids);
+
 app.use("/api/v2", vendors);
 
 app.use('/api/v2/order' , orders)
