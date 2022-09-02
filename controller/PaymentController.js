@@ -35,17 +35,3 @@ exports.getPaymentByOrder = catchAsyncErrors(async (req, res, next) => {
     }
     res.json(review);
   });
-
-
-  
-
- 
-  
- 
-  
-
-
-  
-
-
-
