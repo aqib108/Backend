@@ -124,4 +124,15 @@ exports.createRequisitionReview = catchAsyncErrors(async (req, res, next) => {
       success: true,
     });
   });
+
+  //get requision by organization id
+  exports.getOrganizationRequisition = catchAsyncErrors(async (req,res, next) =>{
+    const requisition = await Requisition.findOne({user:req.params.requisionId});
+    
+    res.status(200).json({
+        success: true,
+        requisition
+    })
+
+});
   

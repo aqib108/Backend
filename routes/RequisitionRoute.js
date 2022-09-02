@@ -6,6 +6,7 @@ const {
   deleteRequisition,
   getSingleRequisition,
   createRequisitionReview,
+  getOrganizationRequisition
 } = require("../controller/RequisitionController");
 
 const bids = require('./BidRoute')
@@ -28,7 +29,7 @@ router
 
   router.use('/requisition/:id/bids', bids)
 
-
+  router.route("/organization/requisitions/:requisionId").get(getOrganizationRequisition);
   
 
 module.exports = router;
