@@ -29,7 +29,7 @@ router
 
   router.use('/requisition/:id/bids', bids)
 
-  router.route("/organization/requisitions/:requisionId").get(getOrganizationRequisition);
+  router.route("/organization/requisitions/:userId").get(getOrganizationRequisition);
   
 
 module.exports = router;
