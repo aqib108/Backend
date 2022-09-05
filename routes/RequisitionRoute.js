@@ -8,14 +8,14 @@ const {
   createRequisitionReview,
   getOrganizationRequisition
 } = require("../controller/RequisitionController");
-const uploader = require('../middleware/uploadFile');
+// const uploader = require('../middleware/uploadFile');
 const bids = require('./BidRoute')
 // const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
 
 router.route("/requisitions").get(getAllRequisitions);
 
-router.route("/requisition/new").post(uploader.single('file'),createRequisition);
+router.route("/requisition/new").post(createRequisition);
 
 router
   .route("/requisition/:id")
