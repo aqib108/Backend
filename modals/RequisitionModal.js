@@ -23,8 +23,9 @@ const requisitionschema = new mongoose.Schema({
     status: {
         type: String,
     },
-
-
+    file:{
+      type:String,
+    },
     attachment: [
     {
         public_id:{
