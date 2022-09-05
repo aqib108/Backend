@@ -13,6 +13,8 @@ app.use(cookieParser());
 
 const  requisition = require("./routes/RequisitionRoute");
 
+
+
 const  vendors = require("./routes/UserRoute");
 
 const  bids = require("./routes/BidRoute");
@@ -29,7 +31,15 @@ const  review = require("./routes/OrderReviewRoute");
 
 const  chats = require("./routes/ChatRoute");
 
+const  conversation = require("./routes/conversation.route");
+
+const  message = require("./routes/message.route");
+
 app.use("/api/v2", requisition);
+
+app.use("/api/v2/conversation", conversation);
+
+app.use("/api/v2/message", message);
 
 app.use("/api/v2/bid", bids);
 

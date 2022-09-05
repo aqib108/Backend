@@ -30,7 +30,7 @@ router.put("/:bidId", updateBid);
 
 //update a Bid status
 
-router.put("/status/:bidId", updateBidStatus);
+router.put("/status/:bidId/:requisitionId", updateBidStatus);
 
 //delete a Bid
 

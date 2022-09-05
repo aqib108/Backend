@@ -73,19 +73,26 @@ exports.getAllBids = catchAsyncErrors(async (req, res, next) => {
   });
 //function change the bid status
 exports.updateBidStatus = catchAsyncErrors(async (req, res, next) => {
+  
   let bid = await Bid.findById(req.params.bidId);
-
   if (!bid) {
       return next(new Error());
     }
-
-
 
   bid = await Bid.findByIdAndUpdate(req.params.bidId, req.body, {
     new: true,
     runValidators: true,
   });
-
+ 
+  if(req.body.status==="accept"){
+    const reqsUpdate = await Bid.updateMany({requisition:req.params.requisitionId,_id:{ $ne: req.params.bidId }},{status:"rejact"}, {
+      runValidators: true,
+    });
+    const changeRequisitionStatus = await RequisitionModal.findByIdAndUpdate(req.params.requisitionId,{status:"InActive"},{
+      runValidators: true,
+    });
+  } 
+  
   res.status(200).json(bid);
 });
 
