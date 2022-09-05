@@ -127,11 +127,11 @@ exports.createRequisitionReview = catchAsyncErrors(async (req, res, next) => {
 
   //get requision by organization id
   exports.getOrganizationRequisition = catchAsyncErrors(async (req,res, next) =>{
-    const requisition = await Requisition.findOne({user:req.params.requisionId});
+    const requisitions = await Requisition.find({user:req.params.userId});
     
     res.status(200).json({
         success: true,
-        requisition
+        requisitions
     })
 
 });
