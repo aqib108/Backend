@@ -12,7 +12,8 @@ const {
   getSingleUser,
   updateUserRole,
   deleteUser,
-  updateUserStatus
+  updateUserStatus,
+  changePassword
 } = require("../controller/UserController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
@@ -26,6 +27,8 @@ router.route("/login").post(loginUser);
 router.route("/logout").get(logoutUser);
 
 router.route("/password/forgot").post(forgotPassword);
+//change password
+router.route("/change/password").post(changePassword);
 
 router.route("/password/reset/:token").put(resetPassword);
 

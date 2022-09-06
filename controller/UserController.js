@@ -276,3 +276,19 @@ exports.updateUserStatus = catchAsyncErrors(async(req,res,next) =>{
       user
   })
 });
+//function change password
+exports.changePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.find({email:req.body.email}).select("+password");
+  if(!user){
+    return next(new ErrorHandler("User is not found against this email",400));
+  }
+  user.password = req.body.password;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    user
+  })
+
+});
