@@ -41,7 +41,7 @@ exports.getUser = async (req, res, next) => {
     if (userId) {
       const dietitian = await User.findOne(
         { _id: userId },
-        "firstName lastName visuals.profileImage education.credential education.certificate  isActive"
+        "name"
       ).lean(true);
 
       let filter = { conversationId: conversationId };
