@@ -31,3 +31,56 @@ process.on("unhandledRejection", (err) =>{
         process.exit(1);
     });
 });
+const { Server } = require("socket.io");
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+let users = [];
+
+const addUser = (userId, socketId) => {
+  !users.some((user) => user.userId === userId) &&
+    users.push({ userId, socketId });
+  console.log(users, "users");
+};
+
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (userId) => {
+  return users.find((user) => user.userId === userId);
+};
+
+io.on("connection", (socket) => {
+  //when connect
+  // console.log(`User Connect ${socket.id}`);
+
+  //take userid and socket id from user
+  socket.on("addUser", (userId) => {
+    addUser(userId, socket.id);
+    io.emit("getUsers", users);
+  });
+
+  //send and get message
+
+  socket.on("sendMessage", ({ senderId, receiverId, text, type, name }) => {
+    const user = getUser(receiverId);
+    io.to(user?.socketId).emit("getMessage", {
+      senderId,
+      text,
+      type,
+      name,
+    });
+  });
+
+  //when disconnected
+  socket.on("disconnect", () => {
+    console.log(`User Disconnect ${socket.id}`);
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
+});
