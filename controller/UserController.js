@@ -4,6 +4,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 const sendToken = require("../utils/jwtToken.js");
 const sendMail = require("../utils/sendMails.js");
 const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
   console.log();
@@ -279,16 +280,30 @@ exports.updateUserStatus = catchAsyncErrors(async(req,res,next) =>{
 //function change password
 exports.changePassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.find({email:req.body.email});
+  
   if(!user){
     return next(new ErrorHandler("User is not found against this email",400));
   }
-  user.password = req.body.password;
 
-  await user.save();
+  changepassword = await bcrypt.hash(req.body.password,10);
+  User.update({email:req.body.email},{password:changepassword}).then(updatedRows=>{
+    if(updatedRows.matchedCount===0){
+      res.status(200).json({
+        success: true,
+        message: "Your email is wrong"
+      })
+    }else
+    {
+      res.status(200).json({
+        success: true,
+        message: "Successfully Updated"
+      })
+    }
 
-  res.status(200).json({
-    success: true,
-    user
-  })
+      
+  }).catch(err=>{
+    console.log(err)
+  });
+
 
 });
