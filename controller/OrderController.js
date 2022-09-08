@@ -34,7 +34,14 @@ exports.getAllUserOrders = catchAsyncErrors(async (req, res, next) => {
   }
   res.json(order);
 })
-
+//get all vendor order
+exports.getAllVendorOrders = catchAsyncErrors(async (req, res, next) => {
+  const order = await Order.find({vendor: req.params.vendorId}).populate('vendor organization bid');
+  if (!order) {
+    return next(new Error());
+  }
+  res.json(order);
+})
   exports.getOrder = catchAsyncErrors(async (req, res, next) => {
     const order = await Order.findOne({ _id: req.params.id }).populate('vendor organization bid');
   

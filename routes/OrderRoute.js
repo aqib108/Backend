@@ -7,7 +7,8 @@ const {
   createOrder,
   updateOrder,
   deleteOrder,
-  getAllUserOrders
+  getAllUserOrders,
+  getAllVendorOrders
 } = require("../controller/OrderController");
 
 
@@ -20,9 +21,13 @@ router.get("/", getAllOrders);
 
 router.get("/:id", getOrder);
 
-// get user Orders
+// get Organization Orders
 
 router.get("/user/:organizationId", getAllUserOrders);
+
+// get vendor Order
+
+router.get("/vendor/:vendorId", getAllVendorOrders);
 
 //post all Orders
 

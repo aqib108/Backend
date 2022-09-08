@@ -13,10 +13,6 @@ const OrderSchema = new mongoose.Schema({
      type : Number,
      required: [true, "Please enter payment"]
    },
-   address : {
-    type : String,
-    required: true,
-   },
    phone : {
     type : String,
    },
