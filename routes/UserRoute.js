@@ -32,11 +32,11 @@ router.route("/change/password").post(changePassword);
 
 router.route("/password/reset/:token").put(resetPassword);
 
-router.route("/me/update").put(isAuthenticatedUser, updatePassword);
+router.route("/me/update").put(updatePassword);
 
-router.route("/me").get(isAuthenticatedUser, userDetails);
+router.route("/me/:user_id").get(userDetails);
 
-router.route("/me/update/info").put(isAuthenticatedUser, updateProfile);
+router.route("/me/update/info").put(updateProfile);
 
 router
   .route("/admin/users")

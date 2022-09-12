@@ -151,7 +151,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 //  Get user Details
 exports.userDetails = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.params.user_id);
 
   res.status(200).json({
     success: true,
@@ -191,7 +191,7 @@ exports.updateProfile = catchAsyncErrors(async(req,res,next) =>{
       address: req.body.address
   };
 
-const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+const user = await User.findByIdAndUpdate(req.body.user_id, newUserData, {
   new: true,
   runValidator: true,
   useFindAndModify: false,
