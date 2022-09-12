@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const OrderSchema = new mongoose.Schema({
     title:{
         type:String,
-        required:[true,"Please enter the title"],
-        minlength:[5,"Please enter a title atleast 5 characters"], 
+        required:[true,"Please enter the title"]
     },
     discription : {
         type : String,
