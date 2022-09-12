@@ -2,7 +2,7 @@ const OrderReview = require("../modals/OrderReviewModel");
 const ErrorHandler = require("../utils/ErrorHandler.js");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 const Features = require("../utils/Features.js");
-
+const fetch = require('node-fetch');
 // create category
 
 exports.createReview = catchAsyncErrors(async (req,res,next) =>{
@@ -50,9 +50,14 @@ exports.updateOrderReview = catchAsyncErrors(async (req, res, next) => {
   
     res.status(200).json(review);
   });
-
+//function fatch fake reviews
+exports.scrapReviews = catchAsyncErrors(async (req, res, next) => {
+  // console.log('test');return false;
+  fetch("https://www.fakerestapi.com/datasets/api/v1/amazon-echo-reviews.json")
+  .then(response => response.json())
+  .then(json => res.status(200).json(json));
+});
   
-
  
   
  

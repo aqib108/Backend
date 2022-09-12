@@ -5,7 +5,8 @@ const {
   createReview,
   getAllReviews,
   getReviewsByOrder,
-  updateOrderReview
+  updateOrderReview,
+  scrapReviews
 } = require("../controller/OrganizationController");
 
 //post order review
@@ -20,6 +21,10 @@ router.get("/:OrderId", getReviewsByOrder);
 //update a Order Review
 
 router.put("/:id", updateOrderReview);
+
+//scrape reviews
+
+router.get("/scrape/reviews", scrapReviews);
 
 // router.put("/", createReview);
 
