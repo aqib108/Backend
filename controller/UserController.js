@@ -5,7 +5,8 @@ const sendToken = require("../utils/jwtToken.js");
 const sendMail = require("../utils/sendMails.js");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
-
+const Review =  require("../modals/VendorReview");
+const fetch = require('node-fetch');
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
   console.log();
   const { name, email, password, cpassword, phone, CNIC, address, role } =
@@ -25,7 +26,21 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
       url: "http://test.com",
     },
   });
-
+  if(req.body.role==='vendor'){
+   fetch(req.body.scrape_url)
+  .then(response => response.json())
+  .then(json=>{
+    var result = json.data.splice(0, 10).map(_data => {
+      return { review_text: _data.review_text,review_rating:_data.review_rating };
+        })
+    const reviews = {
+      vendor: user._id,
+      reviews: result
+    }
+    Review.create(reviews);
+    sendToken(user, 201, res);
+  });
+  }
   sendToken(user, 201, res);
 });
 
@@ -152,10 +167,12 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 //  Get user Details
 exports.userDetails = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.user_id);
-
+  const vendorReviews = await Review.find({vendor: req.params.user_id});
+ 
   res.status(200).json({
     success: true,
     user,
+    vendorReviews
   });
 });
 

@@ -55,7 +55,12 @@ exports.scrapReviews = catchAsyncErrors(async (req, res, next) => {
   // console.log('test');return false;
   fetch("https://www.fakerestapi.com/datasets/api/v1/amazon-echo-reviews.json")
   .then(response => response.json())
-  .then(json => res.status(200).json(json));
+  .then(json=>{
+    var result = json.data.splice(0, 10).map(_data => {
+      return { review_text: _data.review_text,review_rating:_data.review_rating };
+        })
+        res.status(200).json(result);
+  });
 });
   
  
