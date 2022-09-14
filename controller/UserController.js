@@ -326,3 +326,11 @@ exports.changePassword = catchAsyncErrors(async (req, res, next) => {
 
 
 });
+//get vendor reviews
+exports.vendorReviews = catchAsyncErrors(async (req, res, next) => {
+  const vendorReviews = await Review.find({vendor: req.params.user_id});
+  res.status(200).json({
+    success: true,
+    vendorReviews
+  });
+});

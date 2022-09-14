@@ -13,7 +13,8 @@ const {
   updateUserRole,
   deleteUser,
   updateUserStatus,
-  changePassword
+  changePassword,
+  vendorReviews
 } = require("../controller/UserController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
@@ -35,6 +36,9 @@ router.route("/password/reset/:token").put(resetPassword);
 router.route("/me/update").put(updatePassword);
 
 router.route("/me/:user_id").get(userDetails);
+
+//get vendor reviews for orgnazition 
+router.route("/vendor/reviews/:user_id").get(vendorReviews);
 
 router.route("/me/update/info").put(updateProfile);
 
